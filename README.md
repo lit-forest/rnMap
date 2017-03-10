@@ -2,3 +2,6 @@
 <div style="text-align:center" align="center">
   <img src="https://react-map.github.io/rnMap/amap.png" />
 </div>  
+<div style="text-align:center" align="center">
+  <img src="https://react-map.github.io/rnMap/demo.png" />
+</div>  
