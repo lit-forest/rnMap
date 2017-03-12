@@ -152,7 +152,18 @@ class MyScene extends Component {
             })
         }
     }
-
+    zoomInPress() {
+        this._map.setZoomLevel(this.state.zoom + 1);
+        this.setState({
+            zoom: this.state.zoom + 1
+        });
+    }
+    zoomOutPress() {
+        this._map.setZoomLevel(this.state.zoom - 1);
+        this.setState({
+            zoom: this.state.zoom - 1
+        });
+    }
     render() {
         StatusBar.setHidden(true);
         return (
@@ -233,21 +244,23 @@ class MyScene extends Component {
                             </View>
                         </View>
                         <View style={styles.zoom}>
-                            <View style={styles.rightImgContainerBottom}>
-                                <Image
-                                    source={zoomIn}
-                                    style={styles.toolbarRightItem}
-                                    resizeMode='contain' />
-                            </View>
-                            <View style={styles.dividing}>
-
-                            </View>
-                            <View style={styles.rightImgContainerBottom2}>
-                                <Image
-                                    source={zoomOut}
-                                    style={styles.toolbarRightItem}
-                                    resizeMode='contain' />
-                            </View>
+                            <TouchableOpacity activeOpacity={.7} onPress={() => this.zoomInPress()}>
+                                <View style={styles.rightImgContainerBottom}>
+                                    <Image
+                                        source={zoomIn}
+                                        style={styles.toolbarRightItem}
+                                        resizeMode='contain' />
+                                </View>
+                            </TouchableOpacity>
+                            <View style={styles.dividing} />
+                            <TouchableOpacity activeOpacity={.7} onPress={() => this.zoomOutPress()}>
+                                <View style={styles.rightImgContainerBottom2}>
+                                    <Image
+                                        source={zoomOut}
+                                        style={styles.toolbarRightItem}
+                                        resizeMode='contain' />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -408,7 +421,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 10,
-        marginBottom: -1,
         width: 20,
         height: 21,
         borderTopRightRadius: 1,
@@ -418,6 +430,7 @@ const styles = StyleSheet.create({
     dividing: {
         width: 10,
         height: 1,
+        marginTop: -1,
         marginLeft: 5,
         backgroundColor: '#a5a3a3'
     },
