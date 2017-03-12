@@ -217,9 +217,9 @@ const styles = StyleSheet.create({
     menuBar: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingTop: 2,
-        paddingBottom: 2,
-        backgroundColor: '#C0C0C0'
+        paddingTop: 5,
+        paddingBottom: 5,
+        backgroundColor: '#DCDCDC'
     },
     //滚动容器
     scrollContainer: {
@@ -230,10 +230,12 @@ const styles = StyleSheet.create({
     recommend: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        marginTop: 5,
+        marginBottom: 5,
     },
     recommendIcon: {
-        width: 20,
-        height: 20,
+        width: 24,
+        height: 24,
         //marginLeft: 5,
         // marginRight: 30
     },
