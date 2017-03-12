@@ -11,7 +11,7 @@ class componentName extends Component {
     render() {
         return (
             <View>
-                <Text onPress={() => this.press()}>这里是注册模块</Text>
+                <Text onPress={() => this.press()}>这里是附件模块</Text>
             </View>
         );
     }

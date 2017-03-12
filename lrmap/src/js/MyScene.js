@@ -11,8 +11,12 @@ import {
     View,
     TextInput,
     Image,
+    TouchableOpacity,
     ScrollView
 } from 'react-native';
+import Nearby from './nearby/Nearby';
+import Route from './route/Route';
+import Me from './me/Me';
 
 const searchIcon = require('../img/search.png');
 const nearbyIcon = require('../img/nearby.png');
@@ -121,51 +125,33 @@ class MyScene extends Component {
         this._offlineErrorSubscription.remove();
     }
 
-    addNewMarkers = () => {
-        // Treat annotations as immutable and create a new one instead of using .push()
-        this.setState({
-            annotations: [...this.state.annotations, {
-                coordinates: [40.73312, -73.989],
-                type: 'point',
-                title: 'This is a new marker',
-                id: 'foo'
-            }, {
-                'coordinates': [[40.749857912194386, -73.96820068359375], [40.741924698522055, -73.9735221862793], [40.735681504432264, -73.97523880004883], [40.7315190495212, -73.97438049316406], [40.729177554196376, -73.97180557250975], [40.72345355209305, -73.97438049316406], [40.719290332250544, -73.97455215454102], [40.71369559554873, -73.97729873657227], [40.71200407096382, -73.97850036621094], [40.71031250340588, -73.98691177368163], [40.71031250340588, -73.99154663085938]],
-                'type': 'polygon',
-                'fillAlpha': 1,
-                'fillColor': '#000000',
-                'strokeAlpha': 1,
-                'id': 'new-black-polygon'
-            }]
-        });
-    };
-
-    updateMarker2 = () => {
-        // Treat annotations as immutable and use .map() instead of changing the array
-        this.setState({
-            annotations: this.state.annotations.map(annotation => {
-                if (annotation.id !== 'marker2') { return annotation; }
-                return {
-                    coordinates: [31.22, 121.41],
-                    'type': 'point',
-                    title: 'New Title!',
-                    subtitle: 'New Subtitle',
-                    annotationImage: {
-                        source: { uri: 'https://cldup.com/7NLZklp8zS.png' },
-                        height: 25,
-                        width: 25
-                    },
-                    id: 'marker2'
-                };
+    nearbyPress() {
+        const { navigator } = this.props;
+        if (navigator) {
+            navigator.push({
+                name: 'Nearby',
+                component: Nearby
             })
-        });
-    };
-
-    removeMarker2 = () => {
-        this.setState({
-            annotations: this.state.annotations.filter(a => a.id !== 'marker2')
-        });
-    };
+        }
+    }
+    routePress() {
+        const { navigator } = this.props;
+        if (navigator) {
+            navigator.push({
+                name: 'Route',
+                component: Route
+            })
+        }
+    }
+    mePress() {
+        const { navigator } = this.props;
+        if (navigator) {
+            navigator.push({
+                name: 'Me',
+                component: Me
+            })
+        }
+    }
 
     render() {
         StatusBar.setHidden(true);
@@ -266,27 +252,33 @@ class MyScene extends Component {
                     </View>
                 </View>
                 <View style={styles.bottom}>
-                    <View style={styles.item}>
-                        <Image
-                            source={nearbyIcon}
-                            style={styles.itemIcon}
-                            resizeMode='contain' />
-                        <Text style={styles.text}>附近</Text>
-                    </View>
-                    <View style={styles.item}>
-                        <Image
-                            source={routeIcon}
-                            style={styles.itemIcon}
-                            resizeMode='contain' />
-                        <Text style={styles.text}>路线</Text>
-                    </View>
-                    <View style={styles.item}>
-                        <Image
-                            source={meIcon}
-                            style={styles.itemIcon}
-                            resizeMode='contain' />
-                        <Text style={styles.text}>我的</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={.7} onPress={() => this.nearbyPress()}>
+                        <View style={styles.item}>
+                            <Image
+                                source={nearbyIcon}
+                                style={styles.itemIcon}
+                                resizeMode='contain' />
+                            <Text style={styles.text}>附近</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={.7} onPress={() => this.routePress()}>
+                        <View style={styles.item}>
+                            <Image
+                                source={routeIcon}
+                                style={styles.itemIcon}
+                                resizeMode='contain' />
+                            <Text style={styles.text}>路线</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={.7} onPress={() => this.mePress()}>
+                        <View style={styles.item}>
+                            <Image
+                                source={meIcon}
+                                style={styles.itemIcon}
+                                resizeMode='contain' />
+                            <Text style={styles.text}>我的</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
